@@ -2,6 +2,6 @@
   "whatch": ["src"],
   "ext" : "ts",
   "execMap" : {
-    "ts": "sucrase-node src/index.ts"
+    "ts": "ts-node-dev --transpile-only src/index.ts"
     }
 }

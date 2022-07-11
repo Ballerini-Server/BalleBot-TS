@@ -6,12 +6,14 @@
     "esModuleInterop": true,                             
     "skipLibCheck": true,                                 
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src"],
   "lib": [
     "ES6",
-    "ESNext",
-    "ESNext.BigInt"
+    
   ],
+  
 }

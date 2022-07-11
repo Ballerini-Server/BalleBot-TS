@@ -18,6 +18,7 @@
         "@typescript-eslint", "prettier"
     ],
     "rules": {
+      "class-methods-use-this":"off",
       "prettier/prettier": "error",
       "no-console": "off",
       "no-shadow": "off",
