@@ -1,6 +1,6 @@
 import path from "path";
 import { readdirSync } from "fs";
-import { Command } from "../structures/Command";
+import { CommandBase } from "../structures/Command";
 import { Ballebot } from "../structures/Client";
 
 const commandFolders = [
@@ -27,7 +27,7 @@ function recursiveImport(folder: string) {
     const name = `./${path.join(".", folder, file.name).replace(/\\/g, "/")}`;
 
     try {
-      const command = (await import(`${name}`)).default as Command;
+      const command = (await import(`${name}`)).default as CommandBase;
       const ballebot = Ballebot.getInstance();
 
       ballebot.addCommand(command);
