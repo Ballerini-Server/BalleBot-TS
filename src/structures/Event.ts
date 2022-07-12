@@ -3,9 +3,9 @@ import { ClientEvents } from "eris";
 export class EventBase {
   event: keyof ClientEvents;
 
-  run: (...args: ClientEvents[]) => void;
+  run: (...args: any[]) => void;
 
-  constructor(mEvent: keyof ClientEvents, mRun: (...args) => void) {
+  constructor(mEvent: keyof ClientEvents, mRun: (...args: any[]) => void) {
     this.event = mEvent;
     this.run = mRun;
   }

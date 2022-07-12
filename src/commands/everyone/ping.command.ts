@@ -1,4 +1,4 @@
-import { Command } from "../../structures/Command";
+import { CommandBase } from "../../structures/Command";
 
 export default {
   name: "ping",
@@ -14,4 +14,4 @@ export default {
   run: async ({ interaction }) => {
     interaction.followup("Pong");
   },
-} as Command;
+} as CommandBase;

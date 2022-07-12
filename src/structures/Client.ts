@@ -3,8 +3,7 @@ import "dotenv/config";
 import eventHandler from "../events/EventHandler";
 import commandHandler from "../commands/CommandHandler";
 
-import { Command } from "./Command";
-import { EventBase } from "./Event";
+import { CommandBase } from "./Command";
 
 export class Ballebot extends Client {
   // eslint-disable-next-line no-use-before-define
@@ -21,28 +20,25 @@ export class Ballebot extends Client {
     super(`Bot ${process.env.TOKEN}`);
   }
 
-  public commands: Command[] = [];
+  private commands: CommandBase[] = [];
 
   public async loadCommands(): Promise<void> {
     await commandHandler();
   }
 
-  public async addCommand(command: Command) {
+  public async addCommand(command: CommandBase) {
     this.commands.push(command);
   }
 
-  public gettersCommands() {
-    console.log(this.commands);
+  public getListCommands(): CommandBase[] {
+    return this.commands;
   }
 
   public async loadEvents(): Promise<void> {
-    const mapEvents: EventBase[] = await eventHandler();
-    mapEvents.forEach((it) => {
-      this.on(it.event, it.run);
-    });
+    await eventHandler();
   }
 
-  public getterCommands(): Command[] {
+  public getterCommands(): CommandBase[] {
     return this.commands;
   }
 

@@ -8,8 +8,8 @@ export default new EventBase("messageCreate", (message: Message) => {
   const args = message.content.slice(1).split(/ +/);
   console.log(args);
   const ballebot = Ballebot.getInstance();
-  const command = ballebot.commands.find(
-    (command) => command.name === message.content
-  );
+  const command = ballebot
+    .getListCommands()
+    .find((command) => command.name === message.content);
   console.log(command);
 });

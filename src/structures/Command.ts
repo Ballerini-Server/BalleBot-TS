@@ -1,4 +1,4 @@
-export abstract class Command implements CommandType {
+export abstract class CommandBase implements CommandType {
   name: string;
 
   description: string;

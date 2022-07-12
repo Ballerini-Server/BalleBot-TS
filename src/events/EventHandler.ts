@@ -1,11 +1,10 @@
 import path from "path";
 import { readdirSync } from "fs";
 import { EventBase } from "../structures/Event";
+import { Ballebot } from "../structures/Client";
 
-async function EventHandler(): Promise<EventBase[]> {
+async function EventHandler(): Promise<void> {
   return new Promise((resolve) => {
-    const eventMap: EventBase[] = [];
-
     const eventFolders = ["client", "guilds"];
 
     eventFolders.forEach(async (folder) => {
@@ -21,14 +20,15 @@ async function EventHandler(): Promise<EventBase[]> {
       );
 
       eventFiles.forEach(async (file) => {
-        const instanceEvent = await import(`./${folder}/${file}`);
+        const instanceEvent: EventBase = (await import(`./${folder}/${file}`))
+          .default;
 
-        console.log(instanceEvent.default);
-        eventMap.push(instanceEvent.default);
+        const ballebot = Ballebot.getInstance();
+        ballebot.on(instanceEvent.event, instanceEvent.run);
       });
     });
 
-    resolve(eventMap);
+    resolve();
   });
 }
 
