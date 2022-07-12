@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "tauz-hub <tauasanto101@gmail.com>",
-  "scripts": { 
+  "scripts": {
     "dev": "nodemon src/index.ts",
     "commit": "git add . && gitmoji --commit && git push",
     "commit:partial": "gitmoji --commit",
@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
-    "eris": "^0.17.0"
+    "eris": "^0.17.0",
+    "sqlite": "^4.1.1",
+    "sqlite3": "^5.0.8"
   }
 }
