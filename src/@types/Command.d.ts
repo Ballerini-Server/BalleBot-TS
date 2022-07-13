@@ -1,5 +1,8 @@
+import { Message } from "eris";
+
 declare global {
   interface RunOptions {
+    message?: Message;
     interaction?: ExtendedInteraction;
   }
 
