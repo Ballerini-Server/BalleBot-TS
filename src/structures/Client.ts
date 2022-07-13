@@ -26,7 +26,7 @@ export class Ballebot extends Client {
     await commandHandler();
   }
 
-  public async addCommand(command: CommandBase) {
+  public addCommand(command: CommandBase) {
     this.commands.push(command);
   }
 

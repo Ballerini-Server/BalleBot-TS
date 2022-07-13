@@ -11,7 +11,7 @@ export default {
 
   aliases: ["olla"],
 
-  run: async ({ interaction }) => {
-    interaction.followup("Pong");
+  run: async ({ message }) => {
+    message.channel.createMessage("pong");
   },
 } as CommandBase;
