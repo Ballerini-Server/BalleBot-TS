@@ -18,6 +18,7 @@
         "@typescript-eslint", "prettier"
     ],
     "rules": {
+      "max-classes-per-file": "false",
       "class-methods-use-this":"off",
       "prettier/prettier": "error",
       "no-console": "off",
