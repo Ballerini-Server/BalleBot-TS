@@ -1,0 +1,3 @@
+type ParamsUploadImgur = {
+  url: string;
+};

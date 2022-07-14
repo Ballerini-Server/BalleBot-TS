@@ -1,8 +1,9 @@
-import { Client } from "eris";
 import "dotenv/config";
 import eventHandler from "../events/EventHandler";
 import commandHandler from "../commands/CommandHandler";
+import loadSlashCommands from "../commands/CommandSlash";
 
+import { Client } from "eris";
 import { CommandBase } from "./Command";
 
 export class Ballebot extends Client {
@@ -17,7 +18,9 @@ export class Ballebot extends Client {
   }
 
   constructor() {
-    super(`Bot ${process.env.TOKEN}`);
+    super(`Bot ${process.env.TOKEN}`, {
+      intents: ["guilds", "guildMembers", "guildMessages"],
+    });
   }
 
   private commands: CommandBase[] = [];
@@ -38,8 +41,12 @@ export class Ballebot extends Client {
     await eventHandler();
   }
 
-  public getterCommands(): CommandBase[] {
+  public getAllCommands(): CommandBase[] {
     return this.commands;
+  }
+
+  public async loadSlashCommands(): Promise<void> {
+    await loadSlashCommands();
   }
 
   public async init() {

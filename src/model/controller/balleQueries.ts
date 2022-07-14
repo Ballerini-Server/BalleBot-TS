@@ -57,7 +57,7 @@ export async function deleteItem(params: ParamsGetterItem) {
   });
 }
 
-export async function getItem(params: ParamsGetterItem) {
+export async function getItem(params: ParamsGetterItem): Promise<ItemDatabase> {
   return openDb().then(async (db) => {
     const selectQuery = `SELECT * FROM GUILD_${params.guild} WHERE ID='${params.id}'`;
     const item = await db.get(selectQuery);
@@ -69,7 +69,7 @@ export async function getItem(params: ParamsGetterItem) {
   });
 }
 
-export async function getAllUser(guild: string) {
+export async function getAllUser(guild: string): Promise<ItemDatabase[]> {
   return openDb().then(async (db) => {
     const selectQuery = `SELECT * FROM ${guild} WHERE ID LIKE 'USER_%'`;
     const users = db.get(selectQuery);
