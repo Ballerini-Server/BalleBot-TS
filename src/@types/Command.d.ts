@@ -1,12 +1,9 @@
-import { Message } from "eris";
+import { ApplicationCommandOptions, CommandInteraction, Message } from "eris";
 
 declare global {
-  interface RunOptions {
-    message?: Message;
-    interaction?: ExtendedInteraction;
-  }
+  type RunFunction = (params: Message | CommandInteraction) => void;
 
-  type RunFunction = (options: RunOptions) => void;
+  type OpcionalCommandOptions = ApplicationCommandOptions;
 
   type CommandType = {
     name: string;
@@ -15,6 +12,7 @@ declare global {
     category: CategoryCommand;
     aliases?: string[];
     dm?: boolean;
+    optionsSlash?: OpcionalCommandOptions[];
     run: RunFunction;
   };
 }

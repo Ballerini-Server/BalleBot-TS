@@ -11,5 +11,7 @@ export abstract class CommandBase implements CommandType {
 
   dm?: boolean;
 
+  optionsSlash?: OpcionalCommandOptions[];
+
   run: RunFunction;
 }

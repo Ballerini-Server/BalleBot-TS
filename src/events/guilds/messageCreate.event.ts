@@ -1,7 +1,7 @@
+import "dotenv/config";
 import { Message } from "eris";
 import { Ballebot } from "../../structures/Client";
 import { EventBase } from "../../structures/Event";
-import "dotenv/config";
 
 export default new EventBase("messageCreate", (message: Message) => {
   if (!message.content.startsWith(process.env.PREFIX)) return;
@@ -12,5 +12,6 @@ export default new EventBase("messageCreate", (message: Message) => {
   const command = ballebot
     .getListCommands()
     .find((command) => command.name === args[0]);
-  command.run({ message });
+
+  command.run(message);
 });

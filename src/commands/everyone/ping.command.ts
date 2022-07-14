@@ -1,3 +1,4 @@
+import { Message } from "eris";
 import { CommandBase } from "../../structures/Command";
 
 export default {
@@ -9,9 +10,13 @@ export default {
 
   category: "Acessórios ✨",
 
-  aliases: ["olla"],
+  aliases: ["pong"],
 
-  run: async ({ message }) => {
-    message.channel.createMessage("pong");
+  optionsSlash: [],
+
+  run: async (params) => {
+    const channelResponse = params instanceof Message ? params.channel : params;
+
+    channelResponse.createMessage("pong");
   },
 } as CommandBase;
