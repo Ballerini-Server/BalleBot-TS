@@ -1,5 +1,5 @@
-import { Message } from "eris";
 import { CommandBase } from "../../structures/Command";
+import { normalizeParamsOfEvents } from "../../utils/commands/normalizeParamsOfEvents";
 
 export default {
   name: "ping",
@@ -15,8 +15,9 @@ export default {
   optionsSlash: [],
 
   run: async (params) => {
-    const channelResponse = params instanceof Message ? params.channel : params;
+    const objectToBeWorked: ParamsCommandProps =
+      normalizeParamsOfEvents(params);
 
-    channelResponse.createMessage("pong");
+    objectToBeWorked.channelResponse.createMessage("pong");
   },
 } as CommandBase;
