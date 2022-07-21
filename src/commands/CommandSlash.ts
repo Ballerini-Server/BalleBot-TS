@@ -12,14 +12,7 @@ async function loadSlashCommands(): Promise<void> {
         description: command.description,
         type: 1,
         defaultPermission: true,
-        options: [
-          {
-            required: true,
-            type: 11,
-            description: "osieufosef",
-            name: "usuarioss",
-          },
-        ],
+        options: command.optionsSlash,
       });
     });
   });
