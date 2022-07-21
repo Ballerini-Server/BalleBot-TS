@@ -12,6 +12,6 @@ export default new EventBase("messageCreate", (message: Message) => {
   const command = ballebot
     .getListCommands()
     .find((command) => command.name === args[0]);
-
+  if (!command) return;
   command.run(message);
 });
