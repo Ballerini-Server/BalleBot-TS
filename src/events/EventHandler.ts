@@ -8,12 +8,7 @@ async function EventHandler(): Promise<void> {
     const eventFolders = ["client", "guilds"];
 
     eventFolders.forEach(async (folder) => {
-      const folderPath = path.resolve(
-        path.dirname(""),
-        "src",
-        "events",
-        folder
-      );
+      const folderPath = path.resolve(__dirname, folder);
 
       const eventFiles = readdirSync(folderPath).filter(
         (file) => file.endsWith(".event.js") || file.endsWith(".event.ts")
