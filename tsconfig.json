@@ -7,8 +7,6 @@
     "skipLibCheck": true,                                 
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
   },
   "include": ["src"],
   "lib": [
