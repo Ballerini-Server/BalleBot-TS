@@ -9,6 +9,7 @@
     "outDir": "./dist",
   },
   "include": ["src"],
+  "exclude": ["src/**/*.spec.ts"],
   "lib": [
     "ES6",
     
