@@ -1,8 +1,7 @@
 import { Member, Message } from "eris";
 import { Ballebot } from "../../structures/Client";
 
-const regexForRemoveMention =
-  /(<@(!?)(?=[0-9]{18}))|((?<=[0-9]{18})>)|(<(?=[0-9]{18}))/g;
+const regexForRemoveMention = /((<?@?!?)(?=[0-9]))|((?<=[0-9])>)/g;
 
 export async function getMembersFromCommands(
   message: Message
@@ -13,7 +12,7 @@ export async function getMembersFromCommands(
   const promiseMembers = args.map((text) => {
     const itemArgs = text.replace(regexForRemoveMention, "");
 
-    if (!(itemArgs.length === 18)) return;
+    if (!(itemArgs.length === 18) && !(itemArgs.length === 19)) return;
 
     const member = message.member.guild.members.get(itemArgs);
 
@@ -36,7 +35,7 @@ export async function getMembersFromBanishments(
   const promiseMembers = args.map(async (text) => {
     const textId = text.replace(regexForRemoveMention, "");
 
-    if (!(textId.length === 18)) return;
+    if (!(textId.length === 18) && !(textId.length === 19)) return;
 
     const ballebot = Ballebot.getInstance();
 
