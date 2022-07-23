@@ -15,7 +15,7 @@ export async function insertItem(params: ParamsInsertItem) {
 
     const insertQuery = `INSERT INTO GUILD_${
       params.guild
-    } ('ID', 'DATA') VALUES ('${params.id}', '${JSON.stringify(params.data)}')`;
+    } ('ID', 'DATA') VALUES ('${params.id}', ${JSON.stringify(params.data)})`;
 
     await db.exec(insertQuery);
     return;
@@ -34,9 +34,9 @@ export async function updateItem(params: ParamsInsertItem) {
       throw new InvalidUnknownItem();
     }
 
-    const updateQuery = `UPDATE GUILD_${
-      params.guild
-    } SET DATA='${JSON.stringify(params.data)}' WHERE ID='${params.id}'`;
+    const updateQuery = `UPDATE GUILD_${params.guild} SET DATA=${JSON.stringify(
+      params.data
+    )} WHERE ID='${params.id}'`;
 
     await db.run(updateQuery);
     return;
