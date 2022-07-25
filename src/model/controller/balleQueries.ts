@@ -34,9 +34,9 @@ export async function updateItem(params: ParamsInsertItem) {
       throw new InvalidUnknownItem();
     }
 
-    const updateQuery = `UPDATE GUILD_${
-      params.guild
-    } SET DATA='${JSON.stringify(params.data)}' WHERE ID='${params.id}'`;
+    const updateQuery = `UPDATE GUILD_${params.guild} SET DATA=${JSON.stringify(
+      params.data
+    )} WHERE ID='${params.id}'`;
 
     await db.run(updateQuery);
     return;
@@ -60,11 +60,13 @@ export async function deleteItem(params: ParamsGetterItem) {
 export async function getItem(params: ParamsGetterItem): Promise<ItemDatabase> {
   return openDb().then(async (db) => {
     const selectQuery = `SELECT * FROM GUILD_${params.guild} WHERE ID='${params.id}'`;
-    const item = await db.get(selectQuery);
+    const item: ItemDatabase = await db.get(selectQuery);
 
     if (!item) {
       throw new InvalidUnknownItem();
     }
+    item.DATA = JSON.parse(item.DATA);
+
     return item;
   });
 }
@@ -76,6 +78,7 @@ export async function getAllUser(guild: string): Promise<ItemDatabase[]> {
     if (!users) {
       throw new InvalidUnknownItem();
     }
+
     return users;
   });
 }

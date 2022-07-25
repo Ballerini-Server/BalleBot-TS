@@ -1,8 +1,9 @@
 enum PERMISSIONS {
-  "adm",
+  "developer",
+  "owner",
   "padawan",
-  "administrators",
-  "moderators",
+  "administrator",
+  "moderator",
   "everyone",
 }
 
