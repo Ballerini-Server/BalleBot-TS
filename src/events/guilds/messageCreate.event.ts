@@ -3,6 +3,7 @@ import { Message } from "eris";
 import { Ballebot } from "../../structures/Client";
 import { EventBase } from "../../structures/Event";
 import { startWithPrefix } from "../../utils/events/messageCreate/startWithPrefix";
+import { userHasPermission } from "../../utils/events/messageCreate/userHasPermission";
 
 export default new EventBase("messageCreate", async (message: Message) => {
   if (message.author.bot) return;
@@ -19,7 +20,13 @@ export default new EventBase("messageCreate", async (message: Message) => {
       (command) =>
         command.name === commandName || command.aliases?.includes(commandName)
     );
-
   if (!commandToRun) return;
-  commandToRun.run(message);
+
+  const userPermission: boolean = await userHasPermission(
+    message,
+    commandToRun
+  );
+  if (userPermission) {
+    commandToRun.run(message);
+  }
 });

@@ -6,7 +6,7 @@ export async function startWithPrefix(message: Message): Promise<boolean> {
 
   const params: ParamsGetterItem = {
     guild: message.guildID,
-    id: "PREFIX",
+    id: "GUILD_PREFIX",
   };
 
   let serverTable: ItemDatabase;

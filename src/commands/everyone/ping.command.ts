@@ -6,7 +6,7 @@ export default {
 
   description: "replies with pong",
 
-  permissions: ["everyone"],
+  permissions: "everyone",
 
   category: "Acessórios ✨",
 

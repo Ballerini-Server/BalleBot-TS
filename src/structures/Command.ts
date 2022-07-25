@@ -3,7 +3,7 @@ export abstract class CommandBase implements CommandType {
 
   description: string;
 
-  permissions: PermissionType[];
+  permissions: PermissionType;
 
   category: CategoryCommand;
 
