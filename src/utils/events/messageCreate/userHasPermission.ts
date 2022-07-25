@@ -9,12 +9,12 @@ export async function userHasPermission(
   const developersList = process.env.DEVELOPERS?.split("|");
   if (
     developersList.includes(message.author.id) &&
-    commandToRun.permissions.includes("developer")
+    commandToRun.permission.includes("developer")
   ) {
     return true;
   }
 
-  if (commandToRun.dm && !commandToRun.permissions.includes("developer")) {
+  if (commandToRun.dm && !commandToRun.permission.includes("developer")) {
     return true;
   }
 
@@ -41,11 +41,18 @@ export async function userHasPermission(
 
   let higthRole: PermissionType = "everyone";
 
+  if (message.member.guild.ownerID === message.author.id) {
+    higthRole = "owner";
+  }
+  if (message.member.permissions.has("administrator")) {
+    higthRole = "administrator";
+  }
+
   rolesThatTheUserHas?.forEach((role: PermissionType) => {
     if (dicRoles[role] > dicRoles[higthRole]) higthRole = role;
   });
 
-  const permissionsOfCommand: PermissionType = commandToRun.permissions;
+  const permissionsOfCommand: PermissionType = commandToRun.permission;
 
   const userHasPermission: boolean = permissionsOfCommand.includes(higthRole);
 
