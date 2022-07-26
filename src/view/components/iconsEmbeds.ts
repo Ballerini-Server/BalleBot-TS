@@ -1,4 +1,4 @@
-export default {
+const ICONS = {
   sledgehammer: "https://i.imgur.com/2mUBBIq.png",
   broken_sledgehammer: "https://i.imgur.com/5RlHK76.png",
   mute: "https://i.imgur.com/0bj6hum.png",
@@ -15,3 +15,9 @@ export default {
   subwords: "https://i.imgur.com/9UyP0xw.png",
   words: "https://i.imgur.com/gcW4DRj.png",
 };
+
+type ICONSBALLERINI = keyof typeof ICONS;
+
+export function getIcon(icon: ICONSBALLERINI) {
+  return ICONS[icon];
+}

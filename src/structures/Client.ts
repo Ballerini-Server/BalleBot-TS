@@ -33,8 +33,13 @@ export class Ballebot extends Client {
     this.commands.push(command);
   }
 
-  public getListCommands(): CommandBase[] {
-    return this.commands;
+  public getOneCommand(commandToGet: string): CommandBase {
+    const command = this.commands.find(
+      (c) =>
+        c.name.toLowerCase() === commandToGet ||
+        c.aliases?.includes(commandToGet)
+    );
+    return command;
   }
 
   public async loadEvents(): Promise<void> {

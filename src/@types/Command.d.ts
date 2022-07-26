@@ -8,7 +8,7 @@ declare global {
   type CommandType = {
     name: string;
     description: string;
-    permissions: PermissionType;
+    permission: PermissionType;
     category: CategoryCommand;
     aliases?: string[];
     dm?: boolean;

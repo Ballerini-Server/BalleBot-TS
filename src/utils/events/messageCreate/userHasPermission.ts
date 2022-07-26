@@ -7,14 +7,11 @@ export async function userHasPermission(
   commandToRun: CommandBase
 ): Promise<boolean> {
   const developersList = process.env.DEVELOPERS?.split("|");
-  if (
-    developersList.includes(message.author.id) &&
-    commandToRun.permissions.includes("developer")
-  ) {
+  if (developersList.includes(message.author.id)) {
     return true;
   }
 
-  if (commandToRun.dm && !commandToRun.permissions.includes("developer")) {
+  if (commandToRun.dm && !commandToRun.permission.includes("developer")) {
     return true;
   }
 
@@ -41,11 +38,18 @@ export async function userHasPermission(
 
   let higthRole: PermissionType = "everyone";
 
+  if (
+    message.member.guild.ownerID === message.author.id ||
+    message.member.permissions.has("administrator")
+  ) {
+    higthRole = "owner";
+  }
+
   rolesThatTheUserHas?.forEach((role: PermissionType) => {
     if (dicRoles[role] > dicRoles[higthRole]) higthRole = role;
   });
 
-  const permissionsOfCommand: PermissionType = commandToRun.permissions;
+  const permissionsOfCommand: PermissionType = commandToRun.permission;
 
   const userHasPermission: boolean = permissionsOfCommand.includes(higthRole);
 
