@@ -2,8 +2,8 @@ import { CommandInteraction, Message } from "eris";
 
 export function normalizeParamsOfEvents(
   params: Message | CommandInteraction
-): ParamsCommandProps {
-  let objParams: ParamsCommandProps;
+): EventObject {
+  let objParams: EventObject;
 
   if (params instanceof Message) {
     objParams = paramsMessage(params);
@@ -16,21 +16,23 @@ export function normalizeParamsOfEvents(
 
 let args: string[] = [];
 
-function paramsMessage(params: Message): ParamsCommandProps {
+function paramsMessage(params: Message): EventObject {
   const channelResponse = params.channel;
   const attachmentsReceived = params.attachments?.map((att) => att.url) || null;
-  const args = params.content.slice(1).split(/ +/);
-
-  args.splice(0, 1);
+  const args = params.content.split(/ +/);
+  const member = params.member;
+  const guild = params.member.guild;
 
   return {
+    guild,
+    member,
     channelResponse,
     attachmentsReceived,
     args,
   };
 }
 
-function paramsInteraction(params: CommandInteraction): ParamsCommandProps {
+function paramsInteraction(params: CommandInteraction): EventObject {
   const channelResponse = params;
   const paramsData = params.data;
 
@@ -43,7 +45,12 @@ function paramsInteraction(params: CommandInteraction): ParamsCommandProps {
   if (params.data.options) {
     recursiveArgs(params.data.options);
   }
+
+  const member = params.member;
+  const guild = member.guild;
   return {
+    guild,
+    member,
     channelResponse,
     attachmentsReceived,
     args,
