@@ -27,7 +27,6 @@ export default {
       padawan: eventObject.args[1]?.replace(/(<)|(@&)|(>)/g, ""),
     };
 
-    console.log(admsInsert);
     const rolesAdms = Object.values(admsInsert);
 
     if (
@@ -60,10 +59,9 @@ export default {
     };
     try {
       await insertItem(paramsInsert);
-      sendMessageSucessSetAdms(params as Message);
     } catch {
       await updateItem(paramsInsert);
-      sendMessageSucessSetAdms(params as Message);
     }
+    sendMessageSucessSetAdms(params as Message);
   },
 } as CommandBase;
