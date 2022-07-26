@@ -34,9 +34,9 @@ export async function updateItem(params: ParamsInsertItem) {
       throw new InvalidUnknownItem();
     }
 
-    const updateQuery = `UPDATE GUILD_${params.guild} SET DATA=${JSON.stringify(
-      params.data
-    )} WHERE ID='${params.id}'`;
+    const updateQuery = `UPDATE GUILD_${
+      params.guild
+    } SET DATA='${JSON.stringify(params.data)}' WHERE ID='${params.id}'`;
 
     await db.run(updateQuery);
     return;
