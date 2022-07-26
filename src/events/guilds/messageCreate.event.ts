@@ -21,13 +21,14 @@ export default new EventBase("messageCreate", async (message: Message) => {
     .getListCommands()
     .find(
       (command) =>
-        command.name === commandName || command.aliases?.includes(commandName)
+        command.name.toLowerCase() === commandName ||
+        command.aliases?.includes(commandName)
     );
   if (!commandToRun) return;
 
   if (
     !(await guildModerationVerify(message)) &&
-    commandToRun.name != "setadm"
+    commandToRun.name.toLowerCase() != "setadm"
   ) {
     sendMessageHelloServer(message);
     return;
