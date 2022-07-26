@@ -25,7 +25,10 @@ export default new EventBase("messageCreate", async (message: Message) => {
     );
   if (!commandToRun) return;
 
-  if (await guildModerationVerify(message)) {
+  if (
+    !(await guildModerationVerify(message)) &&
+    commandToRun.name != "setadm"
+  ) {
     sendMessageHelloServer(message);
     return;
   }
