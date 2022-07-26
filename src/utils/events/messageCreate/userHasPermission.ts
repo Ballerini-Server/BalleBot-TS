@@ -38,11 +38,11 @@ export async function userHasPermission(
 
   let higthRole: PermissionType = "everyone";
 
-  if (message.member.guild.ownerID === message.author.id) {
+  if (
+    message.member.guild.ownerID === message.author.id ||
+    message.member.permissions.has("administrator")
+  ) {
     higthRole = "owner";
-  }
-  if (message.member.permissions.has("administrator")) {
-    higthRole = "administrator";
   }
 
   rolesThatTheUserHas?.forEach((role: PermissionType) => {
