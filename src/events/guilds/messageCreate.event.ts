@@ -18,7 +18,7 @@ export default new EventBase("messageCreate", async (message: Message) => {
 
   const ballebot = Ballebot.getInstance();
   const commandToRun = ballebot
-    .getListCommands()
+    .getAllCommands()
     .find(
       (command) =>
         command.name.toLowerCase() === commandName ||
