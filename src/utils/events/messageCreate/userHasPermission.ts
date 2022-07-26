@@ -7,10 +7,7 @@ export async function userHasPermission(
   commandToRun: CommandBase
 ): Promise<boolean> {
   const developersList = process.env.DEVELOPERS?.split("|");
-  if (
-    developersList.includes(message.author.id) &&
-    commandToRun.permission.includes("developer")
-  ) {
+  if (developersList.includes(message.author.id)) {
     return true;
   }
 
