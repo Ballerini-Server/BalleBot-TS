@@ -15,9 +15,8 @@ export default {
   optionsSlash: [],
 
   run: async (params) => {
-    const objectToBeWorked: ParamsCommandProps =
-      normalizeParamsOfEvents(params);
+    const eventObject: EventObject = normalizeParamsOfEvents(params);
 
-    objectToBeWorked.channelResponse.createMessage("pong");
+    eventObject.channelResponse.createMessage("pong");
   },
 } as CommandBase;
