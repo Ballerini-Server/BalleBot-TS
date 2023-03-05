@@ -10,7 +10,7 @@ export default new EventBase(
 
     const ballebot = Ballebot.getInstance();
     const command = ballebot
-      .getListCommands()
+      .getAllCommands()
       .find((command) => command.name === interaction.data.name);
     command.run(interaction);
   }
