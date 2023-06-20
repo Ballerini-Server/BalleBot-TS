@@ -7,7 +7,6 @@ import { Client } from "eris";
 import { CommandBase } from "./Command";
 
 export class Ballebot extends Client {
-  // eslint-disable-next-line no-use-before-define
   static instance: Ballebot;
 
   public static getInstance(): Ballebot {

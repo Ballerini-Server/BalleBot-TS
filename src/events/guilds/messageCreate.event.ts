@@ -1,47 +1,33 @@
 import "dotenv/config";
 import { Message } from "eris";
-import { Ballebot } from "../../structures/Client";
 import { EventBase } from "../../structures/Event";
-import { guildModerationVerify } from "../../utils/events/messageCreate/guildModerationVerify";
-import { startWithPrefix } from "../../utils/events/messageCreate/startWithPrefix";
-import { userHasPermission } from "../../utils/events/messageCreate/userHasPermission";
-import { sendMessageHelloServer } from "../../view/embeds/sendMessageHelloServer";
-import { sendMessageWithoutPermission } from "../../view/embeds/sendMessageWithoutPermission";
+import ModuleController from "../../modules/ModuleController";
+import BreakFlow from "../../errors/breakFlow";
 
-export default new EventBase("messageCreate", async (message: Message) => {
-  if (message.author.bot) return;
-  if (message.content === "") return;
-  if (!(await startWithPrefix(message))) return;
+function CollectorErrors(callback, handler) {
+  return async (message) => {
+    try {
+      await callback(message);
+    } catch (error) {
+      handler(error);
+    }
+  };
+}
 
-  const args = message.content.slice(1).split(/ +/);
-  const commandName = args.shift().toLowerCase();
+export default new EventBase(
+  "messageCreate",
+  CollectorErrors(
+    async (message: Message) => {
+      if (message.author.bot || message.webhookID) return;
+      if (message.content === "") return;
+      if (message.guildID !== "836004917973614662") return;
 
-  const ballebot = Ballebot.getInstance();
-  const commandToRun = ballebot
-    .getAllCommands()
-    .find(
-      (command) =>
-        command.name.toLowerCase() === commandName ||
-        command.aliases?.includes(commandName)
-    );
-  if (!commandToRun) return;
-
-  if (
-    !(await guildModerationVerify(message)) &&
-    commandToRun.name.toLowerCase() != "setadm"
-  ) {
-    sendMessageHelloServer(message);
-    return;
-  }
-
-  const userPermission: boolean = await userHasPermission(
-    message,
-    commandToRun
-  );
-  if (userPermission) {
-    commandToRun.run(message);
-  } else {
-    sendMessageWithoutPermission(message, commandToRun.permission);
-  }
-  message.delete();
-});
+      await ModuleController.security(message);
+    },
+    (error) => {
+      if (!(error instanceof BreakFlow)) {
+        console.error(error);
+      }
+    }
+  )
+);
